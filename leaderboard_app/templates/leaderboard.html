@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaderboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8 text-center">Leaderboard</h1>
+        
+        <div class="mb-8 text-center">
+            <a href="{% url 'add_user' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Add New User
+            </a>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <table class="min-w-full">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="py-3 px-4 text-left">Rank</th>
+                        <th class="py-3 px-4 text-left">Username</th>
+                        <th class="py-3 px-4 text-left">XP Points</th>
+                        <th class="py-3 px-4 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                    {% for user in users %}
+                    <tr class="border-b border-gray-200 hover:bg-gray-50">
+                        <td class="py-3 px-4">{{ forloop.counter }}</td>
+                        <td class="py-3 px-4">{{ user.username }}</td>
+                        <td class="py-3 px-4">{{ user.xp_points }}</td>
+                        <td class="py-3 px-4">
+                            <a href="{% url 'delete_user' user.id %}" class="text-red-500 hover:text-red-700">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html> 
