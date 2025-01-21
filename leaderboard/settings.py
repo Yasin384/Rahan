@@ -24,9 +24,15 @@ SECRET_KEY = 'django-insecure-v+s(zh364=sxlr*+!36mkcrql1zxy8m+^c3!0eh(gs429!fjk9
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+ALLOWED_HOSTS = ['rahan.onrender.com', 'localhost', '127.0.0.1']
 
-ALLOWED_HOSTS = []
+CSRF_TRUSTED_ORIGINS = [
+    'https://rahan.onrender.com',
+]
 
+CORS_ALLOWED_ORIGINS = [
+    "https://rahan.onrender.com",
+]
 
 # Application definition
 
@@ -38,9 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'leaderboard_app',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -125,7 +133,3 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # For production
-if not DEBUG:
-    ALLOWED_HOSTS = ['*']
-    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
